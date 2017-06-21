@@ -47,8 +47,7 @@ func (i *UI) read(opts *readOptions) (string, error) {
 			}
 
 			resultStr = strings.TrimSuffix(line, LineSep)
-			// brute force for the moment
-			resultStr = strings.TrimSuffix(line, "\n")
+			resultStr = strings.TrimSpace(resultStr)
 		}
 	}()
 

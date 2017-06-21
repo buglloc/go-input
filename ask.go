@@ -15,7 +15,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 	i.once.Do(i.setDefault)
 
 	// Display the query to the user.
-	fmt.Fprintf(i.Writer, "%s", query)
+	//fmt.Fprintf(i.Writer, "%s", query)
 
 	// resultStr and resultErr are return val of this function
 	var resultStr string
@@ -27,16 +27,14 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 
 		// Construct the instruction to user.
 		var buf bytes.Buffer
-		if !opts.HideOrder || loopCount > 1 {
-			buf.WriteString("\nEnter a value")
-		}
+		fmt.Fprintf(i.Writer, "%s", query)
 
 		if opts.Default != "" && !opts.HideDefault {
 			defaultVal := opts.Default
 			if opts.MaskDefault {
 				defaultVal = maskString(defaultVal)
 			}
-			buf.WriteString(fmt.Sprintf(" (Default is %s)", defaultVal))
+			buf.WriteString(fmt.Sprintf(" (%s)", defaultVal))
 		}
 
 		// Display the instruction to user and ask to input.
@@ -74,7 +72,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 				break
 			}
 
-			fmt.Fprintf(i.Writer, "Failed to validate input string: %s\n\n", err)
+			fmt.Fprintf(i.Writer, "Failed to validate input string: %s\n", err)
 			continue
 		}
 
@@ -84,7 +82,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 	}
 
 	// Insert the new line for next output
-	fmt.Fprintf(i.Writer, "\n")
+	//fmt.Fprintf(i.Writer, "\n")
 
 	return resultStr, resultErr
 }
